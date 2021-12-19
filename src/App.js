@@ -1,29 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import About from './components/About'
 import Nav from './components/Nav'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Projects from './components/Projects'
+import Resume from './components/Resume';
 
 function App() {
+  const [currentPage, handlePageChange] = useState('About Me');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'About Me':
+        return <About />;
+      case 'Contact':
+        return <Contact />;
+      case 'Projects':
+        return <Projects />;
+      case 'Resume':
+        return <Resume />;
+      default:
+        return <About />;
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Nav></Nav>
+      <Header currentPage={currentPage} handlePageChange={handlePageChange}></Header>
       <main>
-        <About></About>
+        {renderPage()}
       </main>
+      <Footer></Footer>
     </div>
   );
 }
